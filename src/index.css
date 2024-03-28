@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  min-height: 100vh;
   margin: 0;
   /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -11,8 +12,9 @@ body {
   /*font-family: 'M PLUS 1p', sans-serif;*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('./bg.png');
   background-size: 200% 180%;
+  /* background: url(LandingPage/img/background.jpg) center no-repeat; */
+  background: linear-gradient(#2b0046, #00008c);
   animation-duration: 3s;
   animation-timing-function: linear;
   animation-delay: 0s;

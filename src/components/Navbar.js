@@ -44,7 +44,6 @@ function Navbar() {
       .request({ method: "eth_requestAccounts" })
       .then(() => {
         updateButton();
-        console.log("here");
         getAddress();
         window.location.replace(location.pathname);
       });
@@ -53,7 +52,6 @@ function Navbar() {
   useEffect(() => {
     let val = window.ethereum.isConnected();
     if (val) {
-      console.log("Is it because of this?", val);
       getAddress();
       toggleConnect(val);
       updateButton();
@@ -78,11 +76,11 @@ function Navbar() {
             <ul className="lg:flex justify-between font-bold mr-10 text-lg">
               {location.pathname === "/" ? (
                 <li className="border-b-2 hover:pb-0 p-2">
-                  <Link to="/">Marketplace</Link>
+                  <Link to="/marketplace">Marketplace</Link>
                 </li>
               ) : (
                 <li className="hover:border-b-2 hover:pb-0 p-2">
-                  <Link to="/">Marketplace</Link>
+                  <Link to="/marketplace">Marketplace</Link>
                 </li>
               )}
               {location.pathname === "/sellNFT" ? (
@@ -108,7 +106,7 @@ function Navbar() {
                   className="enableEthereumButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm"
                   onClick={connectWebsite}
                 >
-                  {connected ? "Connected" : "Connect Wallet"}
+                  {connected ? "Connect" : "Connect Wallet"}
                 </button>
               </li>
             </ul>

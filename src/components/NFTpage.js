@@ -1,5 +1,4 @@
 import Navbar from "./Navbar";
-import axie from "../tile.jpeg";
 import { useLocation, useParams } from "react-router-dom";
 import MarketplaceJSON from "../Marketplace.json";
 import axios from "axios";
@@ -14,23 +13,19 @@ export default function NFTPage(props) {
 
   async function getNFTData(tokenId) {
     const ethers = require("ethers");
-    //After adding your Hardhat network to your metamask, this code will get providers and signers
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const addr = await signer.getAddress();
-    //Pull the deployed contract instance
     let contract = new ethers.Contract(
       MarketplaceJSON.address,
       MarketplaceJSON.abi,
       signer
     );
-    //create an NFT Token
     var tokenURI = await contract.tokenURI(tokenId);
     const listedToken = await contract.getListedForTokenId(tokenId);
     tokenURI = GetIpfsUrlFromPinata(tokenURI);
     let meta = await axios.get(tokenURI);
     meta = meta.data;
-    console.log(listedToken);
 
     let item = {
       price: meta.price,
@@ -41,21 +36,17 @@ export default function NFTPage(props) {
       name: meta.name,
       description: meta.description,
     };
-    console.log(item);
     updateData(item);
     updateDataFetched(true);
-    console.log("address", addr);
     updateCurrAddress(addr);
   }
 
   async function buyNFT(tokenId) {
     try {
       const ethers = require("ethers");
-      //After adding your Hardhat network to your metamask, this code will get providers and signers
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
 
-      //Pull the deployed contract instance
       let contract = new ethers.Contract(
         MarketplaceJSON.address,
         MarketplaceJSON.abi,
@@ -63,7 +54,6 @@ export default function NFTPage(props) {
       );
       const salePrice = ethers.utils.parseUnits(data.price, "ether");
       updateMessage("Buying the NFT... Please Wait (Upto 5 mins)");
-      //run the executeSale function
       let transaction = await contract.executeSale(tokenId, {
         value: salePrice,
       });
